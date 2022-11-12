@@ -166,7 +166,7 @@ function sendSentences() {
     
     //console.log("about to request");
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", "http://localhost:5000/request", false);
+    xmlHttp.open("POST", "localhost:5000/request", false);
     xmlHttp.setRequestHeader("Content-Type", "application/json");
     xmlHttp.send(formattedSentences);
     //console.log("we requested");

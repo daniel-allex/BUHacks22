@@ -20,12 +20,12 @@ def handleRequest():
     #response.headers.add('Access-Control-Allow-Origin', '*')
     #return response
     
-    keywords = "Apple Vietnam" # search query to duckduckgo
+    keywords = "climate change" # search query to duckduckgo
 
     r = ddg_news(keywords, region='wt-wt', safesearch='Off', time='d', max_results=5)
 
     example = [{
-       "sentence": "Apple is pulling factories from Vietnam",
+       "sentence": "climate change",
         "results": [{
             "error": "Interviews with dozens of officials showed the outside forces,",
             "source": r[0]["url"],
@@ -50,5 +50,5 @@ def handleRequest():
     return json.dumps(example)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='localhost',port=5000,debug=True)
 
