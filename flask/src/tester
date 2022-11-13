@@ -1,0 +1,8 @@
+s="Apple is the new orange" 
+s1=s.split()
+print(s1)
+first=s1.index("Apple")
+last=s1.index("new")
+print(first)
+print(last)
+print(" ".join(s1[first:last+1]))

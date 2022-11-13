@@ -3,6 +3,7 @@ from flask_cors import CORS
 from duckduckgo_search import ddg_news
 import spacy
 from spacy.lang.en import English
+from searcher import search
 
 
 
@@ -18,12 +19,13 @@ def index():
 def handleRequest():
     print("requested")
     text = request.get_json()["contents"]
+    topics=request.get_json()["topics"]
     nlp = spacy.load('en_core_web_sm')
 
 
     sentences = [i for i in nlp(text).sents]
-    print(sentences[6])
-
+    result= search(sentences,topics)
+    print(result)
     #se = text.split("\n")
     #response = json.dumps({"contents": se[0]})
     #response.headers.add('Access-Control-Allow-Origin', '*')
@@ -31,12 +33,12 @@ def handleRequest():
     #print(text)
     #print(text[0])
     #print(text.split('.'))
-    keywords = "climate change" # search query to duckduckgo
+    keywords = result[1] + " "+ result[2]  # search query to duckduckgo
 
     r = ddg_news(keywords, region='wt-wt', safesearch='Off', time='d', max_results=5)
 
     example = [{
-       "sentence": "climate change",
+       "sentence": result[0],
         "results": [{
             "error": "Interviews with dozens of officials showed the outside forces,",
             "source": r[0]["url"],
