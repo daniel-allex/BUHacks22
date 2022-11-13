@@ -148,7 +148,7 @@ function getJournalists() {
     }
 }
 
-function sendSentences() {
+function sendSentences(preferences) {
     //console.log("sendSentences()");
     if (original == true) {
         if (document.body.innerText.length > 50000) {
@@ -160,8 +160,13 @@ function sendSentences() {
             totalWords = document.body.innerText.length;
         }
     }
-    var sentences = [{"contents": sentenceQueue.pop(0)},
-                    {"topics": []}];
+    console.log(preferences);
+    var body = "";
+    if (sentenceQueue.length > 0) {
+        body = sentenceQueue.pop(0)
+    }
+    var sentences = {"contents": body,
+                    "topics": preferences};
     var formattedSentences = JSON.stringify(sentences);
 
     
@@ -187,9 +192,9 @@ function sendSentences() {
      */
  }
 
-function updatePage() {
+function updatePage(preferences) {
     console.log("test");
-    var misinformationData = sendSentences();
+    var misinformationData = sendSentences(preferences);
     highlightMisinfo(misinformationData);
     getJournalists();
     highlightJournalists();
@@ -289,7 +294,7 @@ function initiateAddedNodes() {
 chrome.runtime.onMessage.addListener(
     function (request) {
         if (request.type == "checkPage")
-            updatePage();
+            updatePage(request.preferences);
         else if (request.type == "findMisinformationPercent") {
             if (totalWords == 0) {
                 chrome.runtime.sendMessage({

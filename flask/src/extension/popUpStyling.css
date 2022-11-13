@@ -25,6 +25,32 @@
         cursor: pointer;
     }
 
+.topicButton {
+    text-decoration: none;
+    text-align: center;
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: normal;
+    box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: inline-block;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    margin-right: 7px;
+
+    border-radius: 16px;
+    width: auto;
+    color: white;
+}
+    
+    .topicButton:hover {
+        cursor: pointer;
+        box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19), inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+    }
+
 #popUpWindow {
     width: 250px;
     height: auto;
@@ -33,6 +59,9 @@
 #currentStatus {
     color: #e53935;
     font-weight: bold;
+}
+
+#topicsHolder {
 }
 
 #limitWarning {

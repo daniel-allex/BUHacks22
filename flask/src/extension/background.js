@@ -6,11 +6,11 @@ function getCurrentTime() {
     return Math.floor(Date.now() / 1000);
 }
 
-function tryScan(tab) {
+function tryScan(tab, preferences) {
     if (debounce == false) {
         debounce = true;
         chrome.runtime.sendMessage({ type: "setStatus", status: "Check_Page"});
-        chrome.tabs.sendMessage(tab, { type: "checkPage" });
+        chrome.tabs.sendMessage(tab, { type: "checkPage", preferences: preferences });
     }
 }
 
@@ -27,7 +27,7 @@ function setUp() {
 chrome.runtime.onMessage.addListener(
     function (request) {
         if (request.type == "tryScan") {
-            tryScan(request.tab);
+            tryScan(request.tab, request.preferences);
         }
         else if (request.type == "setUp")
         {

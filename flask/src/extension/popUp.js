@@ -6,6 +6,7 @@ var percentAddOn;
 var setup = false;
 var startTimer;
 var button;
+var UNSELECTED = "#9e9e9e";
 var politicalColors = {
     "Left": "#1565c0",
     "Left Center": "#42a5f5",
@@ -18,6 +19,10 @@ var politicalColors = {
     "Satire": "#e91e63"
 }
 
+var topics = {"Tech": {"color": "#1976d2"},
+            "Finance": {"color": "#4caf50"},
+            "Sports": {"color": "#fb8c00"}};
+
 function onScanRequest() {
     let params = {
         active: true,
@@ -25,11 +30,29 @@ function onScanRequest() {
     }
 
     chrome.tabs.query(params, gotTabs);
+    let chosen = [];
+
+    for (let key in topics) {
+        if (topics[key]["preference"]) {
+            chosen.push(key);
+        }
+    }
+    console.log(chosen);
 
     function gotTabs(tabs) {
         if (countDown <= 0) {
-            chrome.runtime.sendMessage({ type: "tryScan", tab: tabs[0].id });
+            chrome.runtime.sendMessage({ type: "tryScan", tab: tabs[0].id, preferences: chosen });
         }
+    }
+}
+
+function updateButtonColor(key) {
+    let btn = topics[key]["element"];
+    if (topics[key]["preference"]) {
+        btn.style.backgroundColor = topics[key]["color"];
+    }
+    else {
+        btn.style.backgroundColor = UNSELECTED;
     }
 }
 
@@ -88,6 +111,30 @@ function checkLength() {
     }
 }
 
+function loadButtons() {
+    var holder = document.getElementById("topicsHolder");
+
+    for (let key in topics) {
+        let btn = document.createElement('a');
+        btn.classList.add('topicButton');
+        topics[key]["element"] = btn;
+        btn.innerHTML = key;
+        holder.appendChild(btn);
+
+        btn.onclick = function start() {
+            console.log("generated button clicked");
+            topics[key]["preference"] = !topics[key]["preference"];
+            save = {}
+            for (let k in topics) {
+                save[k] = topics[k]["preference"];
+            }
+            chrome.storage.sync.set(save, function() {});
+
+            updateButtonColor(key);
+        }
+    }
+}
+
 function timer() {
    countDown--;
     currentStatus.innerText = "Please wait " + countDown + " seconds";
@@ -105,6 +152,20 @@ document.addEventListener('DOMContentLoaded', function () {
     misinformationPercent = document.getElementById("pageData");
     percentAddOn = document.getElementById("limitWarning");
     politicalBias = document.getElementById("politicalBias");
+    loadButtons();
+    let keys = Object.keys(topics);
+    chrome.storage.sync.get(keys, function(data) {
+        for (let key in data) {
+            if (data[key] === "undefined") {
+                topics[key]["preference"] = false;
+            }
+            else {
+                topics[key]["preference"] = data[key];
+            }
+            updateButtonColor(key);
+        }
+    });
+
     findPoliticalBias();
     checkLength();
 });
