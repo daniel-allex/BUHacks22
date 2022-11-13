@@ -5,7 +5,7 @@
   "browser_action": {
     "default_title": "Exact Fact",
     "default_icon": "images/MF_Logo_32.png",
-    "default_popup": "misinfoTab.html"
+    "default_popup": "popUpTab.html"
   },
   "icons": {
     "16": "images/MF_Logo_16.png",
@@ -19,7 +19,7 @@
   "content_scripts": [
     {
       "matches": [ "<all_urls>" ],
-      "js": [ "content.js", "mark.min.js", "journalists.js" ],
+      "js": [ "content.js", "mark.min.js"],
       "css": [ "boxStyling.css" ]
     }
   ],

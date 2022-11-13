@@ -1,4 +1,4 @@
-#misinfoScanButton {
+#ScanButton {
     background-color: #42a5f5;
     text-decoration: none;
     text-align: center;
@@ -20,7 +20,7 @@
     color: white;
 }
 
-    #misinfoScanButton:hover {
+    #ScanButton:hover {
         background-color: #2196f3;
         cursor: pointer;
     }
@@ -70,10 +70,6 @@
 }
 
 #pageData {
-    font-weight: bold;
-}
-
-#politicalBias {
     font-weight: bold;
 }
 

@@ -1,16 +1,10 @@
-.MarkUpMisinformation {
+.MarkUp {
     opacity: 1;
-    background-color: #f57c00;
+    background-color: #42a5f5;
     color: white;
 }
 
-.MarkUpJournalists {
-    opacity: 1;
-    background-color: #f57c00;
-    color: white;
-}
-
-.misinfoBoxes {
+.newsBoxes {
     background-color: #fafafa;
     font-family: Arial;
     font-size: 14px;
