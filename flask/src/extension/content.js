@@ -83,7 +83,7 @@ function sendSentences(preferences) {
     var formattedSentences = JSON.stringify(sentences);
 
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("POST", "http://localhost:5000/request", false);
+    xmlHttp.open("POST", "http://127.0.0.1:5000/request", false);
     xmlHttp.setRequestHeader("Content-Type", "application/json");
     xmlHttp.send(formattedSentences);
     //console.log("we requested");
