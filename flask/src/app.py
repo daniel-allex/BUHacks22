@@ -1,6 +1,9 @@
 from flask import Flask, render_template, url_for, request, redirect, json
 from flask_cors import CORS
 from duckduckgo_search import ddg_news
+import spacy
+from spacy.lang.en import English
+
 
 
 app = Flask(__name__)
@@ -15,11 +18,19 @@ def index():
 def handleRequest():
     print("requested")
     text = request.get_json()["contents"]
+    nlp = spacy.load('en_core_web_sm')
+
+
+    sentences = [i for i in nlp(text).sents]
+    print(sentences[6])
+
     #se = text.split("\n")
     #response = json.dumps({"contents": se[0]})
     #response.headers.add('Access-Control-Allow-Origin', '*')
     #return response
-    
+    #print(text)
+    #print(text[0])
+    #print(text.split('.'))
     keywords = "climate change" # search query to duckduckgo
 
     r = ddg_news(keywords, region='wt-wt', safesearch='Off', time='d', max_results=5)

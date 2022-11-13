@@ -6,8 +6,26 @@ var button;
 var UNSELECTED = "#9e9e9e";
 
 var topics = {"Tech": {"color": "#1976d2"},
-            "Finance": {"color": "#4caf50"},
-            "Sports": {"color": "#fb8c00"}};
+       "Finance": {"color": "#e53935"},
+       "World": {"color": "#fb8c00"},
+       "Politics": {"color": "#7b1fa2"},
+       "Space": {"color": "#00796b"},
+       "Healthcare": {"color": "#43a047"},
+       "Science": {"color": "#039be5"},
+       "Fashion": {"color": "#ec407a"},
+       "Food": {"color": "#ef5350"},
+       "Sports": {"color": "#ffc107"},
+       "Music": {"color": "#8d6e63"},
+       "Art": {"color": "#5c6bc0"},
+       "Entertainment": {"color": "#7cb342"},
+       "Environment": {"color": "#607d8b"},
+       "Shopping": {"color": "#f44336"},
+       "Writing": {"color": "#673ab7"},
+       "Law": {"color": "#673ab7"},
+       "Government": {"color": "#00897b"},
+       "Education": {"color": "#7cb342"},
+       "Transportation": {"color": "#fb8c00"},
+       "Military": {"color": "#1e88e5"}};
 
 function onScanRequest() {
     let params = {
@@ -98,7 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let keys = Object.keys(topics);
     chrome.storage.sync.get(keys, function(data) {
         for (let key in data) {
-            if (data[key] === "undefined") {
+            if (data === "undefined") {
                 topics[key]["preference"] = false;
             }
             else {
