@@ -1,6 +1,6 @@
 import json 
 
-f=open('/Users/harshilkhara/Desktop/BUHacks22/flask/output.json')
+f=open('output.json')
 
 data=json.load(f)
 
@@ -9,19 +9,30 @@ data=json.load(f)
     #print(v)
     
 def search(contents,topics):
-    first=True 
-    #contents=contents.split()
-    for content in contents:
-        for topic in topics:
-            for word in content:
-                s=content.split()
-                if word in data[topic] and first:
-                    firstMatch=s.index(word)
-                    first=False 
-                if word in data[topic]:
-                    lastMatch=s.index(word)
+    first=True
+    #for content in contents:
+    for topic in topics:
+        print(data["" + topic])
 
-        return " ".join(content[firstMatch:lastMatch+1]),content[firstMatch],content[lastMatch]
+    print(contents[12].text)
+    content=contents[12].text
+    firstMatch=0
+    lastMatch=0
+    for topic in topics:
+        print(data[topic])
+        s=content.split()
+        for word in s:
+            print(word)
+            if word in data[topic] and first:
+                print("we got till here")
+                firstMatch=s.index(word)
+                first=False 
+            if word in data[topic]:
+                lastMatch=s.index(word)
+
+    return " ".join(s[firstMatch:lastMatch+1]),s[firstMatch],s[lastMatch]
+
+    
 
     
 
